@@ -29,7 +29,7 @@
 ```env
 SECRET_KEY=your-django-secret-key
 DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
+ALLOWED_HOSTS=localhost,127.0.0.1,example.com
 
 POSTGRES_DB=stripe_api_db
 POSTGRES_USER=stripe_api_user
