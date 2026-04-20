@@ -133,10 +133,6 @@ URL: `/admin/`
 
 > **Демо:** https://stripe-api.phentalex.ru
 
-Логин: **admin**
-
-Пароль: **admin**
-
 ## Автор
 
 **Александр Уваров** — [GitHub](https://github.com/phentalex)
