@@ -22,7 +22,7 @@ services:
   gateway:
     image: phentalex/stripe-api-gateway:latest
     ports:
-      - 8000:80
+      - 80:80
     depends_on:
       - backend
     volumes:
