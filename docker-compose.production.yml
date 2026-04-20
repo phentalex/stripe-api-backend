@@ -14,7 +14,6 @@ services:
     image: phentalex/stripe-api-backend:latest
     env_file: .env
     volumes:
-      - ./backend:/app
       - static:/backend_static
     depends_on:
       - db
