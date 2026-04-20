@@ -132,8 +132,10 @@ URL: `/admin/`
 Логин и пароль задаются при выполнении `createsuperuser`.
 
 > **Демо:** https://stripe-api.phentalex.ru
-> **Логин:** admin
-> **Пароль:** admin
+
+Логин: **admin**
+
+Пароль: **admin**
 
 ## Автор
 
