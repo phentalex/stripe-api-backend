@@ -1,8 +1,10 @@
 from django.urls import path
 
-from payments.views import (BuyItemView, BuyOrderView, CancelView,
-                            GetItemView, GetOrderView, IndexView,
-                            SuccessView)
+from payments.views import (
+    BuyItemView, BuyOrderView, CancelView,
+    GetItemView, GetOrderView, IndexView,
+    SuccessView,
+)
 
 
 urlpatterns = [

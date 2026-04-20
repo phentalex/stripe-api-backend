@@ -1,5 +1,4 @@
 from django.contrib import admin, messages
-
 from payments.models import Discount, Item, Order, Tax
 
 
