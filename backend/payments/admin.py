@@ -24,12 +24,11 @@ class OrderAdmin(admin.ModelAdmin):
         order = form.instance
         currencies = order.items.values_list('currency', flat=True).distinct()
         if currencies.count() > 1:
-            order.items.clear()
+            order.delete()
             self.message_user(
                 request,
-                'All items must be in the same currency. '
-                'Order has been cleared.',
-                level=messages.ERROR
+                'Валюты товаров должны совпадать. Заказ не был сохранён.',
+                level=messages.ERROR,
             )
 
 

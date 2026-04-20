@@ -18,8 +18,6 @@ services:
       - static:/backend_static
     depends_on:
       - db
-    ports:
-      - 8000:8000
   gateway:
     build: ./gateway
     ports:
