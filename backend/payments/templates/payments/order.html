@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order #{{ order.id }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h4 class="mb-0">Order #{{ order.id }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush mb-4">
+                            {% for item in order.items.all %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>{{ item.name }}</span>
+                                <span class="fw-bold">{{ item.price }} {{ item.currency|upper }}</span>
+                            </li>
+                            {% endfor %}
+                            {% if order.discount %}
+                            <li class="list-group-item d-flex justify-content-between text-success">
+                                <span>Discount: {{ order.discount.name }}</span>
+                            </li>
+                            {% endif %}
+                            {% if order.tax %}
+                            <li class="list-group-item d-flex justify-content-between text-muted">
+                                <span>Tax: {{ order.tax.name }}</span>
+                            </li>
+                            {% endif %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="fw-bold">Total</span>
+                                <span class="fw-bold">{{ order.total_price }} {{ currency }}</span>
+                            </li>
+                        </ul>
+                        <button id="buy-button" class="btn btn-primary w-100 btn-lg">Buy now</button>
+                    </div>
+                </div>
+                <a href="/" class="btn btn-link mt-3">← Back to Shop</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var stripe = Stripe('{{ stripe_public_key }}');
+        document.getElementById('buy-button').addEventListener('click', function() {
+            fetch('/buy/order/{{ order.id }}/')
+                .then(response => response.json())
+                .then(session => stripe.redirectToCheckout({ sessionId: session.id }))
+        });
+    </script>
+</body>
+</html>
