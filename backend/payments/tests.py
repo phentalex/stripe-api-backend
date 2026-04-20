@@ -10,7 +10,7 @@ class TestPageViews:
         assert response.status_code == HTTPStatus.OK
 
     def test_item_page_returns_200(self, client, item):
-        response = client.get(reverse('get_item', args=(item.pk)))
+        response = client.get(reverse('get_item', args=(item.pk,)))
         assert response.status_code == HTTPStatus.OK
 
     def test_item_page_404(self, client, db):
@@ -18,7 +18,7 @@ class TestPageViews:
         assert response.status_code == HTTPStatus.NOT_FOUND
 
     def test_order_page_returns_200(self, client, order):
-        response = client.get(reverse('get_order', args=(order.pk)))
+        response = client.get(reverse('get_order', args=(order.pk,)))
         assert response.status_code == HTTPStatus.OK
 
     def test_order_page_404(self, client, db):
@@ -37,7 +37,7 @@ class TestBuyItem:
             'stripe.checkout.Session.create',
             return_value=mock_stripe_session
         ):
-            response = client.get(reverse('buy_item', args=(item.pk)))
+            response = client.get(reverse('buy_item', args=(item.pk,)))
         assert response.status_code == HTTPStatus.OK
         assert response.json() == {'id': 'cs_test_session_id'}
 
@@ -57,7 +57,7 @@ class TestBuyOrder:
             'stripe.checkout.Session.create',
             return_value=mock_stripe_session
         ):
-            response = client.get(reverse('buy_order', args=(order.pk)))
+            response = client.get(reverse('buy_order', args=(order.pk,)))
         assert response.status_code == HTTPStatus.OK
         assert response.json() == {'id': 'cs_test_session_id'}
 
@@ -68,7 +68,7 @@ class TestBuyOrder:
             'stripe.checkout.Session.create', return_value=mock_stripe_session
         ) as mock_create:
             response = client.get(
-                reverse('buy_order', args=(order_with_discount_and_tax.pk))
+                reverse('buy_order', args=(order_with_discount_and_tax.pk,))
             )
         assert response.status_code == HTTPStatus.OK
         assert mock_create.call_args.kwargs['discounts'] == [
