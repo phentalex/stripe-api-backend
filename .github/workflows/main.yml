@@ -67,7 +67,7 @@ jobs:
           context: ./backend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/stripe-api-backend:latest
-	
+
   deploy:
     runs-on: ubuntu-latest
     needs: build_backend_and_push_to_dockerhub
@@ -81,7 +81,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           source: "docker-compose.production.yml"
-          target: "kittygram"
+          target: "stripe-api"
       - name: Executing renote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
@@ -89,7 +89,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd kittygram
+            cd stripe-api
             sudo docker compose -f docker-compose.production.yml pull
             sudo docker compose -f docker-compose.production.yml down
             sudo docker compose -f docker-compose.production.yml up -d
